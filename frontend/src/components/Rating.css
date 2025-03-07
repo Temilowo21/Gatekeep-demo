@@ -1,0 +1,23 @@
+.rating {
+    display: flex;
+    align-items: center;
+    gap: 6px; /* Adds spacing between stars and text */
+    margin-top: 6px;
+  }
+  
+  .stars {
+    display: flex;
+    gap: 3px; /* Spaces out stars */
+  }
+  
+  .rating span {
+    font-size: 16px;
+    color: #f8e825;
+  }
+  
+  .rating-text {
+    font-size: 14px;
+    color: #555;
+    margin-left: 6px; /* Adds spacing between stars and review text */
+  }
+  
