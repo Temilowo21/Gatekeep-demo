@@ -1,0 +1,111 @@
+/* iOS-Inspired Product Screen */
+.product-container {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Go Back Button */
+.btn-light {
+    background: linear-gradient(145deg, #f5f5f5, #e0e0e0);
+    color: #333;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    border-radius: 12px;
+    font-weight: 500;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn-light:hover {
+    background: linear-gradient(145deg, #e0e0e0, #d6d6d6);
+    color: black;
+}
+
+/* Product Image */
+.product-image {
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Product Title */
+.product-title {
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #222;
+}
+
+/* Rating Section */
+.rating {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 18px;
+}
+
+.rating-text {
+    font-size: 16px;
+    color: #666;
+}
+
+/* Price Section */
+.product-price {
+    font-size: 22px;
+    font-weight: bold;
+    color: #000;
+}
+
+/* Description */
+.product-description {
+    font-size: 17px;
+    color: #555;
+    line-height: 1.5;
+}
+
+/* iOS-style Card */
+.price-card {
+    border-radius: 15px;
+    border: none;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    backdrop-filter: blur(12px);
+}
+
+/* Add to Cart Button */
+.add-to-cart-btn {
+    display: block;
+    width: 100%;
+    background: linear-gradient(145deg, #007aff, #0056b3);
+    color: white;
+    font-size: 18px;
+    padding: 12px;
+    border-radius: 12px;
+    border: none;
+    font-weight: 500;
+    transition: all 0.3s ease-in-out;
+}
+
+.add-to-cart-btn:hover {
+    background: linear-gradient(145deg, #0056b3, #0043a5);
+    color: white;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .product-container {
+        padding: 15px;
+    }
+    .product-title {
+        font-size: 22px;
+    }
+    .product-price {
+        font-size: 20px;
+    }
+}

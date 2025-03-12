@@ -1,42 +1,29 @@
-import React from 'react';
-import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
-import { FaShoppingCart, FaUser } from 'react-icons/fa';
-import { LinkContainer } from 'react-router-bootstrap';
-import './Header.css';
 
-const Header = () => {
-  return (
-    <header>
-      <Navbar bg="dark" variant="dark" expand="lg" className="custom-navbar" collapseOnSelect>
-        <Container>
-          <LinkContainer to='/'>
-            <Navbar.Brand className="brand">
-              <img src="/logo.png" alt="GateKeep Logo" className="logo" />
-              <span>GATEKEEP</span>
-            </Navbar.Brand>
-          </LinkContainer>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="ms-auto">
-              <LinkContainer to='/cart'>
-                <Nav.Link className="nav-link-custom">
-                  <FaShoppingCart className="me-2" /> Cart
-                </Nav.Link>
-              </LinkContainer>
-              
-              {/* ✅ User Dropdown Menu */}
-              <NavDropdown title={<><FaUser className="me-2" /> Account</>} id="username">
-                <LinkContainer to='/profile'>
-                  <NavDropdown.Item>Profile</NavDropdown.Item>
-                </LinkContainer>
-                <NavDropdown.Item>Logout</NavDropdown.Item>
-              </NavDropdown>
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
-    </header>
-  );
-};
 
-export default Header;
+.custom-navbar {
+    background-color: #343a40 !important;
+    padding: 10px 0;
+}
+
+.custom-navbar .navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+.custom-navbar .logo {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.custom-navbar .nav-link-custom {
+    font-size: 1rem;
+    color: #ffffff !important;
+    margin-left: 15px;
+}
+
+.custom-navbar .nav-link-custom:hover {
+    text-decoration: underline;
+}
