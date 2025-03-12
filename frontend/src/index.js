@@ -1,22 +1,22 @@
-import React from 'react';
+import React from "react";
 import ReactDOM from 'react-dom/client';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import {
   createBrowserRouter,
   createRoutesFromElements,
   Route,
-  RouterProvider
+  RouterProvider,
 } from 'react-router-dom';
-import App from './App';
-import HomeScreen from './screens/HomeScreen';
-import ProductScreen from './screens/ProductScreen';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min';  
+import App from './App.js';
+import reportWebVitals from './reportWebVitals';
+import HomeScreen from './screens/HomeScreen.jsx';
+import ProductScreen from './screens/ProductScreen.jsx';  // ✅ Import ProductScreen
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
-      <Route index={true} path="/" element={<HomeScreen />} />
-      <Route path='/product/:id' element={<ProductScreen />} />
+      <Route index element={<HomeScreen />} />    
+      <Route path="/product/:id" element={<ProductScreen />} />  {/* ✅ ProductScreen route */}
     </Route>
   )
 );
@@ -27,3 +27,5 @@ root.render(
     <RouterProvider router={router} />
   </React.StrictMode>
 );
+
+reportWebVitals();
