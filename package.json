@@ -1,0 +1,23 @@
+{
+  "name": "proshop-v2",
+  "version": "1.0.0",
+  "description": "eCommerce application built with the MERN stack",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node backend/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Temilowo21/Gatekeep-demo.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Temilowo21/Gatekeep-demo/issues"
+  },
+  "homepage": "https://github.com/Temilowo21/Gatekeep-demo#readme",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
