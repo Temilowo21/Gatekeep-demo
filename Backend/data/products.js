@@ -1,6 +1,5 @@
 const products = [
   {
-      _id: '1',
       name: 'Apple AirPods',
       image: '/images/airpods.jpg',
       description: 'Wireless Bluetooth earbuds with high-quality sound and noise cancellation.',
@@ -12,7 +11,7 @@ const products = [
       numReviews: 150,
   },
   {
-      _id: '2',
+
       name: 'Amazon Alexa',
       image: '/images/alexa.jpg',
       description: 'Smart speaker with voice control, music streaming, and smart home integration.',
@@ -24,7 +23,7 @@ const products = [
       numReviews: 95,
   },
   {
-      _id: '3',
+
       name: 'Canon Camera',
       image: '/images/camera.jpg',
       description: 'Professional-grade DSLR camera with 20MP resolution and 4K video recording.',
@@ -36,7 +35,6 @@ const products = [
       numReviews: 75,
   },
   {
-      _id: '4',
       name: 'Logitech MX Master 3 Mouse',
       image: '/images/mouse.jpg',
       description: 'Advanced wireless mouse with customizable buttons and ultra-fast scrolling.',
@@ -48,7 +46,7 @@ const products = [
       numReviews: 85,
   },
   {
-      _id: '5',
+
       name: 'iPhone 12',
       image: '/images/phone.jpg',
       description: 'The iPhone 12 features a 6.1-inch Super Retina XDR display and A14 Bionic chip.',
@@ -59,8 +57,7 @@ const products = [
       rating: 4.6,
       numReviews: 120,
   },
-  {
-      _id: '6',
+{
       name: 'Sony PlayStation 5',
       image: '/images/playstation.jpg',
       description: 'Next-gen gaming console with ultra-fast SSD and immersive gameplay experience.',

@@ -1,16 +1,21 @@
 import express from 'express';
-import products from './data/products.js';
+import dotenv from 'dotenv';
+import connectDB from './config/db.js';
+import productRoutes from './routes/ProductRoutes.js';
 
-const port = 5001;  // Change to 5001
+dotenv.config();
+connectDB();
 
 const app = express();
+const port = process.env.PORT || 5001;
+
+console.log("🚀 connectDB() called");
 
 app.get('/', (req, res) => {
     res.send('API is running...');
 });
 
-app.get('/api/products/:id', (req, res) => {
-    const product = products.find((p) => p._id === req.params.id);
-    res.json(product);
-});
-app.listen(port, () => console.log(`Server running on port ${port}`));
+// ✅ Delegate routing
+app.use('/api/products', productRoutes);
+
+app.listen(port, () => console.log(`✅ Server running on port ${port}`));

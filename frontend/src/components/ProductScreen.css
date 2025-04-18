@@ -1,4 +1,4 @@
-/* iOS-Inspired Product Screen */
+
 .product-container {
     max-width: 900px;
     margin: 30px auto;
@@ -9,7 +9,7 @@
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
-/* Go Back Button */
+
 .btn-light {
     background: linear-gradient(145deg, #f5f5f5, #e0e0e0);
     color: #333;
