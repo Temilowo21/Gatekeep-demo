@@ -14,17 +14,18 @@ const UserListScreen = () => {
       {isLoading ? (
         <Loader />
       ) : error ? (
-        <Message variant='danger'>
+        <Message variant="danger">
           {error?.data?.message || error.error}
         </Message>
       ) : (
-        <Table striped bordered hover responsive className='table-sm'>
+        <Table striped bordered hover responsive className="table-sm">
           <thead>
             <tr>
               <th>ID</th>
               <th>NAME</th>
               <th>EMAIL</th>
-              <th>ADMIN</th>
+              <th className="text-center">ADMIN</th>
+              <th className="text-center">BRAND</th> {/* ✅ New BRAND Column */}
               <th>ACTIONS</th>
             </tr>
           </thead>
@@ -34,21 +35,23 @@ const UserListScreen = () => {
                 <td>{user._id}</td>
                 <td>{user.name}</td>
                 <td><a href={`mailto:${user.email}`}>{user.email}</a></td>
-                <td className='text-center'>
+                <td className="text-center">
                   {user.isAdmin ? '✅' : '❌'}
+                </td>
+                <td className="text-center">
+                  {user.isBrand ? '✅' : '❌'} {/* ✅ Show Brand status */}
                 </td>
                 <td className="d-flex align-items-center justify-content-center gap-2">
                   <Link to={`/admin/user/${user._id}/edit`}>
-                    <Button variant='light' className='btn-sm'>
+                    <Button variant="light" className="btn-sm">
                       <FaEdit />
                     </Button>
                   </Link>
                   <Button
-                    variant='danger'
-                    className='btn-sm'
+                    variant="danger"
+                    className="btn-sm"
                     onClick={() => {
                       if (window.confirm('Are you sure you want to delete this user?')) {
-                        // ⚡ Hook up delete handler here if you want!
                         console.log('Delete user:', user._id);
                       }
                     }}

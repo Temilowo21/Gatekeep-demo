@@ -2,7 +2,7 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { Form, Row, Col, Image, ListGroup, Card, Button } from "react-bootstrap";
 import Rating from "../components/Rating";
 import "../components/ProductScreen.css";
-import { useGetProductDetailsQuery, useCreateReviewMutation } from "../slices/productsApiSlice";
+import { useGetProductDetailsQuery, useCreateReviewMutation, useDeleteReviewMutation } from "../slices/productsApiSlice";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import { useState } from "react";
@@ -17,10 +17,11 @@ const ProductScreen = () => {
   const [qty, setQty] = useState(1);
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
-  const [message, setMessage] = useState(null); // for review submission error/success
+  const [message, setMessage] = useState(null);
 
   const { data: product, isLoading, refetch, error } = useGetProductDetailsQuery(productId);
   const [createReview, { isLoading: loadingProductReview }] = useCreateReviewMutation();
+  const [deleteReview] = useDeleteReviewMutation();
 
   const { userInfo } = useSelector((state) => state.auth);
 
@@ -32,11 +33,7 @@ const ProductScreen = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      await createReview({
-        productId,
-        rating,
-        comment,
-      }).unwrap();
+      await createReview({ productId, rating, comment }).unwrap();
       refetch();
       setMessage('Review submitted successfully!');
       setRating(0);
@@ -46,11 +43,21 @@ const ProductScreen = () => {
     }
   };
 
+  const deleteReviewHandler = async (reviewId) => {
+    if (window.confirm('Are you sure you want to delete this review?')) {
+      try {
+        await deleteReview({ productId, reviewId }).unwrap();
+        refetch();
+        setMessage('Review deleted successfully!');
+      } catch (err) {
+        setMessage(err?.data?.message || err.error);
+      }
+    }
+  };
+
   return (
     <>
-      <Link className="btn btn-light my-3" to="/">
-        Go Back
-      </Link>
+      <Link className="btn btn-light my-3" to="/">Go Back</Link>
 
       {isLoading ? (
         <Loader />
@@ -95,9 +102,7 @@ const ProductScreen = () => {
                   <ListGroup.Item>
                     <Row>
                       <Col>Status:</Col>
-                      <Col>
-                        {product.countInStock > 0 ? "In Stock" : "Out of Stock"}
-                      </Col>
+                      <Col>{product.countInStock > 0 ? "In Stock" : "Out of Stock"}</Col>
                     </Row>
                   </ListGroup.Item>
 
@@ -140,6 +145,7 @@ const ProductScreen = () => {
           <Row className="mt-5">
             <Col md={6}>
               <h2>Reviews</h2>
+
               {product.reviews.length === 0 && <Message>No Reviews</Message>}
 
               <ListGroup variant="flush">
@@ -149,13 +155,28 @@ const ProductScreen = () => {
                     <Rating value={review.rating} />
                     <p>{review.createdAt.substring(0, 10)}</p>
                     <p>{review.comment}</p>
+
+                    {userInfo && (userInfo.isAdmin || review.user === userInfo._id) && (
+                      <Button
+                        variant="danger"
+                        size="sm"
+                        onClick={() => deleteReviewHandler(review._id)}
+                        className="mt-2"
+                      >
+                        Delete
+                      </Button>
+                    )}
                   </ListGroup.Item>
                 ))}
 
                 <ListGroup.Item>
                   <h2>Write a Customer Review</h2>
 
-                  {message && <Message variant={message.includes('successfully') ? 'success' : 'danger'}>{message}</Message>}
+                  {message && (
+                    <Message variant={message.includes('successfully') ? 'success' : 'danger'}>
+                      {message}
+                    </Message>
+                  )}
                   {loadingProductReview && <Loader />}
 
                   {userInfo ? (

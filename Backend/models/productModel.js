@@ -1,71 +1,104 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
-const reviewSchema = mongoose.Schema({
+// Review Schema
+const reviewSchema = mongoose.Schema(
+  {
     name: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
     rating: {
-        type: Number,
-        required: true,
+      type: Number,
+      required: true,
     },
     comment: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
-}, {
+    user: { 
+      type: mongoose.Schema.Types.ObjectId, 
+      required: true, 
+      ref: 'User' 
+    }, // ✅ Link review to user
+  },
+  {
     timestamps: true,
-});
+  }
+);
 
-const productSchema = new mongoose.Schema({
+// Product Schema
+const productSchema = mongoose.Schema(
+  {
     user: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
-        ref: "User",
-    },
-    name: {
-        type: String,
-        required: true,
-    },
-    image: [{
-        type: String,
-        required: true,
-    }],
-    brand: {
-        type: String,
-        required: true,
-    },
-    category: {
-        type: String,
-        required: true,
-    },
-    description: {
-        type: String,
-        required: true,
-    },
-    price: {
-        type: Number,
-        required: true,
-    },
-    reviews: [reviewSchema],
-    rating: {
-        type: Number,
-        required: true,
-        default: 0,
-    },
-    numReviews: {
-        type: Number,
-        required: true,
-        default: 0,
-    },
-    countInStock: {
-        type: Number,
-        required: true,
-        default: 0,
-    },
-}, {
-    timestamps: true,
-});
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'User',
+    }, // User who created the product (admin or brand)
 
-const Product = mongoose.model("Product", productSchema);
+    brandOwner: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'User',
+    }, // ✅ Specific brand that owns the product
+
+    name: {
+      type: String,
+      required: true,
+    },
+
+    image: [
+      {
+        type: String,
+        required: true,
+      },
+    ], // ✅ Array of images (good setup)
+
+    brand: {
+      type: String,
+      required: true,
+    },
+
+    category: {
+      type: String,
+      required: true,
+    },
+
+    description: {
+      type: String,
+      required: true,
+    },
+
+    price: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
+
+    countInStock: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
+
+    reviews: [reviewSchema], // ✅ Array of reviews
+
+    rating: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
+
+    numReviews: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
+
+// Export Product Model
+const Product = mongoose.model('Product', productSchema);
 export default Product;

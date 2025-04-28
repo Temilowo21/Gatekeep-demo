@@ -19,6 +19,12 @@ const userSchema = new mongoose.Schema({
         required: true,
         default: false,
     },
+
+    isBrand: {
+        type: Boolean,
+        required: true,
+        default: false,
+    },
     }, {
         timestamps: true,
 });
