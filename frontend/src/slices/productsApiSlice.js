@@ -3,7 +3,6 @@ import { apiSlice } from './apiSlice';
 
 export const productsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    // Get all products (HomeScreen)
     getProducts: builder.query({
       query: ({ keyword, pageNumber = '' }) => ({
         url: `${PRODUCTS_URL}`,
@@ -12,7 +11,6 @@ export const productsApiSlice = apiSlice.injectEndpoints({
       keepUnusedDataFor: 5,
     }),
 
-    // Get a single product
     getProductDetails: builder.query({
       query: (productId) => ({
         url: `${PRODUCTS_URL}/${productId}`,
@@ -20,7 +18,6 @@ export const productsApiSlice = apiSlice.injectEndpoints({
       keepUnusedDataFor: 5,
     }),
 
-    // Create new product (Brand only)
     createProduct: builder.mutation({
       query: (product) => ({
         url: PRODUCTS_URL,
@@ -30,7 +27,6 @@ export const productsApiSlice = apiSlice.injectEndpoints({
       invalidatesTags: ['Product'],
     }),
 
-    // Update product (Brand only)
     updateProduct: builder.mutation({
       query: (data) => ({
         url: `${PRODUCTS_URL}/${data._id}`,
@@ -40,17 +36,16 @@ export const productsApiSlice = apiSlice.injectEndpoints({
       invalidatesTags: ['Product'],
     }),
 
-    // Upload product image
+    // ✅ Only keep ONE correct uploadProductImage
     uploadProductImage: builder.mutation({
-      query: (data) => ({
+      query: (formData) => ({
         url: `${UPLOAD_URL}`,
         method: 'POST',
-        body: data,
+        body: formData,
       }),
       invalidatesTags: ['Product'],
     }),
 
-    // Delete product (Brand only)
     deleteProduct: builder.mutation({
       query: (productId) => ({
         url: `${PRODUCTS_URL}/${productId}`,
@@ -59,7 +54,6 @@ export const productsApiSlice = apiSlice.injectEndpoints({
       invalidatesTags: ['Product'],
     }),
 
-    // Create a new review
     createReview: builder.mutation({
       query: ({ productId, rating, comment }) => ({
         url: `${PRODUCTS_URL}/${productId}/reviews`,
@@ -69,7 +63,6 @@ export const productsApiSlice = apiSlice.injectEndpoints({
       invalidatesTags: ['Product'],
     }),
 
-    // Delete a review
     deleteReview: builder.mutation({
       query: ({ productId, reviewId }) => ({
         url: `${PRODUCTS_URL}/${productId}/reviews/${reviewId}`,
@@ -78,7 +71,6 @@ export const productsApiSlice = apiSlice.injectEndpoints({
       invalidatesTags: ['Product'],
     }),
 
-    // Get Top Products (Carousel)
     getTopProducts: builder.query({
       query: () => ({
         url: `${PRODUCTS_URL}/top`,
@@ -86,7 +78,6 @@ export const productsApiSlice = apiSlice.injectEndpoints({
       keepUnusedDataFor: 5,
     }),
 
-    // 🚀 Get MY products (brand owner's products only)
     getMyProducts: builder.query({
       query: () => ({
         url: `${PRODUCTS_URL}/myproducts`,
@@ -96,6 +87,7 @@ export const productsApiSlice = apiSlice.injectEndpoints({
   }),
 });
 
+// ✅ Exports
 export const {
   useGetProductsQuery,
   useGetProductDetailsQuery,
@@ -106,5 +98,5 @@ export const {
   useCreateReviewMutation,
   useDeleteReviewMutation,
   useGetTopProductsQuery,
-  useGetMyProductsQuery,  // ✅ Added for brand owner dashboard
+  useGetMyProductsQuery,
 } = productsApiSlice;

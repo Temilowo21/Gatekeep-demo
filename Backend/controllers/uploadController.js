@@ -1,9 +1,6 @@
 import path from 'path';
-import express from 'express';
 import multer from 'multer';
 import fs from 'fs';
-
-const router = express.Router();
 
 // Set storage engine
 const storage = multer.diskStorage({
@@ -32,17 +29,16 @@ function checkFileType(file, cb) {
   }
 }
 
-// Set up multer upload
 const upload = multer({
   storage: storage,
-  limits: { fileSize: 2 * 1024 * 1024 }, // 2MB file size limit
+  limits: { fileSize: 2 * 1024 * 1024 },
   fileFilter: (req, file, cb) => {
     checkFileType(file, cb);
   },
 }).single('image');
 
-// POST /api/upload
-router.post('/', (req, res) => {
+// Controller function
+export const uploadImage = (req, res) => {
   upload(req, res, (err) => {
     if (err) {
       return res.status(400).send({ message: err });
@@ -52,8 +48,7 @@ router.post('/', (req, res) => {
     }
     res.status(200).send({
       message: 'File uploaded successfully',
-      image: `/uploads/${req.file.filename}`,  // ✅ Correct! Use filename not path
+      image: `/${req.file.path}`,
     });
   });
-});
-export default router;
+};

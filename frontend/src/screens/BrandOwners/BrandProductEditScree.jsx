@@ -1,7 +1,11 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
-import { useGetProductDetailsQuery, useUpdateProductMutation, useUploadProductImageMutation } from "../../slices/productsApiSlice";
+import { 
+  useGetProductDetailsQuery, 
+  useUpdateProductMutation, 
+  useUploadProductImageMutation 
+} from "../../slices/productsApiSlice";
 import Loader from "../../components/Loader";
 import Message from "../../components/Message";
 import FormContainer from "../../components/FormContainer";
@@ -24,13 +28,13 @@ const BrandProductEditScreen = () => {
 
   useEffect(() => {
     if (product) {
-      setName(product.name);
-      setPrice(product.price);
-      setImage(product.image[0] || '');
-      setBrand(product.brand);
-      setCategory(product.category);
-      setCountInStock(product.countInStock);
-      setDescription(product.description);
+      setName(product.name || '');
+      setPrice(product.price || 0);
+      setImage(product.image || ''); // ✅ FIXED
+      setBrand(product.brand || '');
+      setCategory(product.category || '');
+      setCountInStock(product.countInStock || 0);
+      setDescription(product.description || '');
     }
   }, [product]);
 
@@ -41,7 +45,7 @@ const BrandProductEditScreen = () => {
         _id: productId,
         name,
         price,
-        image: [image], // Note: must be an array
+        image: image, // ✅ No Array, single string
         brand,
         category,
         countInStock,
@@ -60,7 +64,8 @@ const BrandProductEditScreen = () => {
 
     try {
       const res = await uploadProductImage(formData).unwrap();
-      setImage(res.image); // ✅ After upload, set the image
+      console.log('Image uploaded:', res);
+      setImage(res.image); // ✅ Save uploaded image path
     } catch (err) {
       console.error(err);
     }
@@ -101,7 +106,7 @@ const BrandProductEditScreen = () => {
             <Form.Label>Image</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Enter image URL"
+              placeholder="Enter image URL or upload file"
               value={image}
               onChange={(e) => setImage(e.target.value)}
             />
@@ -111,6 +116,17 @@ const BrandProductEditScreen = () => {
               className="mt-2"
             />
             {loadingUpload && <Loader />}
+
+            {/* ✅ Image preview */}
+            {image && (
+              <div className="mt-2">
+                <img
+                  src={`http://localhost:5000${image}`}
+                  alt="Uploaded preview"
+                  style={{ maxWidth: '100px', height: '100px', objectFit: 'cover', borderRadius: '5px' }}
+                />
+              </div>
+            )}
           </Form.Group>
 
           <Form.Group controlId="brand" className="my-2">
